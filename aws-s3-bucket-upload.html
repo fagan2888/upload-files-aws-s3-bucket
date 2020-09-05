@@ -6,9 +6,9 @@
 
 //Bucket Configurations
 
- var bucketName = BUCKET_NAME;
- var bucketRegion = BUCKET_REGION;
- var IdentityPoolId = IDENTITY_POOL_ID;
+ var bucketName = "avanti-fellows";
+ var bucketRegion = "ap-south-1:55666887-6fb4-4ec4-b023-1d496059109e";
+ var IdentityPoolId = "Regions.AP_SOUTH_1";
 
  AWS.config.update({
                 region: bucketRegion,
@@ -18,7 +18,7 @@
             });
 
             var s3 = new AWS.S3({
-                apiVersion: '2006-03-01',
+                apiVersion: '2020-07-01',
                 params: {Bucket: bucketName}
         });
 </script>

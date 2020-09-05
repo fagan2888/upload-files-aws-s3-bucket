@@ -7,8 +7,8 @@
 //Bucket Configurations
 
  var bucketName = "avanti-fellows";
- var bucketRegion = "ap-south-1:55666887-6fb4-4ec4-b023-1d496059109e";
- var IdentityPoolId = "Regions.AP_SOUTH_1";
+ var IdentityPoolId = "ap-south-1:55666887-6fb4-4ec4-b023-1d496059109e";
+ var bucketRegion = "ap-south-1";
 
  AWS.config.update({
                 region: bucketRegion,
@@ -44,7 +44,7 @@
                     var file = files[0];
                     var fileName = file.name;
                     var filePath = 'my-first-bucket-path/' + fileName;
-                    var fileUrl = 'https://' + BUCKET_REGION + '.amazonaws.com/my-first-bucket/' +  filePath;
+                    var fileUrl = 'https://' + bucketRegion + '.amazonaws.com/my-first-bucket/' +  filePath;
             
                     s3.upload({
                                     Key: filePath,

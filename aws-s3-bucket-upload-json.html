@@ -26,7 +26,7 @@
 <body>
     <!-- A functional html code-->
     <div>
-        <input type="file" id="fileUpload">
+        <input type="text" id="jsonUpload">
     </div>
 
     <div>
@@ -38,31 +38,35 @@
     <script type="text/javascript">
 
       function s3upload() {  
-            var files = document.getElementById('fileUpload').files;
-            if (files) 
+            var text = document.getElementById('jsonUpload').value;
+            if (text) 
             {
-                var file = files[0];
-                var fileName = file.name;
+                const jsonString = JSON.stringify({'answer': text})
+                console.log(jsonString)
+
+                var fileName = 'test.json';
                 var filePath = 'my-first-bucket-path/' + fileName;
-                var fileUrl = 'https://' + bucketRegion + '.amazonaws.com/my-first-bucket/' +  filePath;
-        
-                s3.upload({
-                                Key: filePath,
-                                Body: file,
-                                ACL: 'public-read'
-                            }, function(err, data) {
-                                if(err) {
-                                    reject('error');
-                                }
-                                
-                                alert('Successfully Uploaded!');
-                            }).on('httpUploadProgress', function (progress) {
-                                console.log(fileUrl)
-                                var uploaded = parseInt((progress.loaded * 100) / progress.total);
-                                $("progress").attr('value', uploaded);
-                            });
+
+                s3.putObject({
+                        Key: filePath,
+                        ACL: 'public-read',
+                        Body: jsonString,
+                        ContentType: 'application/json'
+                    }, function (err) {
+                        if(err) {
+                            reject('error');
+                        }
+                        
+                        alert('Successfully Uploaded!');
+                    }
+                ).on('httpUploadProgress', function (progress) {
+                        var uploaded = parseInt((progress.loaded * 100) / progress.total);
+                        $("progress").attr('value', uploaded);
+                    }
+                );
+
             }
-      };
+        };
     </script>
 </body>
 </html>
